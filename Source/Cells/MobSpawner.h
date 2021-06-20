@@ -17,6 +17,9 @@ class CELLS_API AMobSpawner : public ALogic
 public:
 	AMobSpawner();
 
+	UFUNCTION(BlueprintCallable, Category = "MobSpawner")
+		int getMobLeft();
+
 protected:
 	virtual void runlogic(float elapsedTime_p);
 
@@ -25,6 +28,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobSpawner")
 		AMobMover* mobMover;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobSpawner")
+		int mobSpawned;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobSpawner")
+		int mobDespawned;
 
 	float storedTime;
 };
