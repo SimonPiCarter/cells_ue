@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ArmorType.h"
+#include "Logic/StorageInfo.h"
 
 #include <array>
 #include <list>
@@ -21,7 +22,13 @@ public:
 	// Sets default values for this actor's properties
 	AMobEntity();
 
-	void move(float time_p);
+	void disable();
+	bool isEnabled() const;
+
+	std::array<double, 2> getPosition() const;
+	std::array<double, 2> getSize() const;
+	std::list<StorageInfo<AMobEntity> > const& getPositionNodes() const;
+	std::list<StorageInfo<AMobEntity> >& getPositionNodes();
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,40 +36,47 @@ protected:
 	
 	ArmorType armorType;
 
-	size_t _currentCheckPoint;
+	bool _first;
+	std::list<std::array<double, 2> >::iterator _currentCheckPoint;
 
-	bool isAtLastCheckPoint();
-	FVector2D const& getCurrentCheckPoint();
+	bool _enabled;
+
+	std::list<StorageInfo<AMobEntity> > _storageInfo;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
-		TArray<FVector2D> checkpoints;
+	std::list<std::array<double, 2> > _checkPoints;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float hitpoint;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float maxHitpoint;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float speed;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float damageMultiplier;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float damageLife;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float scrapReward;
 
-	UPROPERTY(BlueprintReadWrite, Category = "MobEntity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float size;
 
 	UFUNCTION(BlueprintCallable, Category = "MobEntity")
 		void setArmorType(FString const& str_p);
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "MobEntity")
+		void despawn();
+
+	bool isAtLastCheckPoint();
+	void incrementCheckPoint();
+	std::array<double, 2> const& getCurrentCheckPoint();
 };

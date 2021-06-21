@@ -6,7 +6,9 @@
 // Sets default values
 AMobEntity::AMobEntity()
 	: armorType(ArmorType::Standard)
-	, _currentCheckPoint(0)
+	, _first(true)
+	, _currentCheckPoint()
+	, _enabled(true)
 	, hitpoint(3.)
 	, maxHitpoint(3.)
 	, speed(10)
@@ -19,44 +21,32 @@ AMobEntity::AMobEntity()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AMobEntity::move(float time_p)
+void AMobEntity::disable()
+{
+	_enabled = false;
+}
+
+bool AMobEntity::isEnabled() const
+{
+	return _enabled;
+}
+
+std::array<double, 2> AMobEntity::getPosition() const
 {
 	FVector currentLocation_l = this->GetActorLocation();
-	float remaining_l = time_p;
-	// skip if at last checkpoint
-	while (!isAtLastCheckPoint() && remaining_l > 1e-7)
-	{
-		// direction to next checkpoint
-		FVector2D const& checkpoint_l = getCurrentCheckPoint();
-		FVector target_l = FVector(checkpoint_l, currentLocation_l.Z);
-		FVector direction_l = target_l - currentLocation_l;
-		// normalize direction
-		float length_l = direction_l.Size();
-		direction_l /= length_l;
-		// reached checkpoint
-		if (length_l < time_p * speed)
-		{
-			currentLocation_l = target_l;
-			remaining_l -= length_l / speed;
-			++_currentCheckPoint;
-		}
-		else
-		{
-			currentLocation_l += time_p * speed * direction_l;
-			remaining_l = 0;
-		}
-	}
-	this->SetActorLocation(currentLocation_l);
+	return  { currentLocation_l.X, currentLocation_l.Y };
 }
-
-bool AMobEntity::isAtLastCheckPoint()
+std::array<double, 2> AMobEntity::getSize() const
 {
-	return _currentCheckPoint >= checkpoints.Num();
+	return { size , size };
 }
-
-FVector2D const & AMobEntity::getCurrentCheckPoint()
+std::list<StorageInfo<AMobEntity> > const& AMobEntity::getPositionNodes() const
 {
-	return checkpoints[_currentCheckPoint];
+	return _storageInfo;
+}
+std::list<StorageInfo<AMobEntity> >& AMobEntity::getPositionNodes()
+{
+	return _storageInfo;
 }
 
 // Called when the game starts or when spawned
@@ -76,4 +66,29 @@ void AMobEntity::Tick(float DeltaTime)
 void AMobEntity::setArmorType(FString const & str_p)
 {
 	armorType = fromStringToArmorType(std::string(TCHAR_TO_UTF8(*str_p)));
+}
+
+bool AMobEntity::isAtLastCheckPoint()
+{
+	return _currentCheckPoint == _checkPoints.end();
+}
+
+void AMobEntity::incrementCheckPoint()
+{
+	if (_first)
+	{
+		_currentCheckPoint = _checkPoints.begin();
+		_first = false;
+	}
+	++_currentCheckPoint;
+}
+
+std::array<double, 2> const& AMobEntity::getCurrentCheckPoint()
+{
+	if (_first)
+	{
+		_currentCheckPoint = _checkPoints.begin();
+		_first = false;
+	}
+	return *_currentCheckPoint;
 }

@@ -3,7 +3,7 @@
 
 #include "Logic.h"
 
-float ALogic::FixedTimeStep = 0.1f;
+float ALogic::FixedTimeStep = 0.01f;
 
 // Sets default values
 ALogic::ALogic() : accumulatedTime(0.f)
