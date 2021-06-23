@@ -7,7 +7,7 @@
 #include <list>
 
 class AMobEntity;
-class WaveEngine;
+class UWaveEngine;
 
 /**
  * 
@@ -15,11 +15,11 @@ class WaveEngine;
 class CELLS_API MobEntityMover
 {
 public:
-	MobEntityMover(WaveEngine& waveEngine_p);
+	MobEntityMover(UWaveEngine& waveEngine_p);
 	~MobEntityMover();
 
-	void moveEntities(std::list<AMobEntity*> mobs_p, float elapsedTime_p);
+	void moveEntities(TArray< AMobEntity*> const & mobs_p, float elapsedTime_p);
 
 protected:
-	WaveEngine& _waveEngine;
+	UWaveEngine& _waveEngine;
 };

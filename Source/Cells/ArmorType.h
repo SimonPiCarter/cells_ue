@@ -2,7 +2,10 @@
 
 #include <iostream>
 
-enum class ArmorType
+#include "ArmorType.generated.h"
+
+UENUM(BlueprintType)
+enum class ArmorType : uint8
 {
 	Standard,
 	Resilient,
@@ -32,5 +35,17 @@ inline std::ostream& operator<<(std::ostream& os_p, ArmorType type_p)
 
 inline ArmorType fromStringToArmorType(std::string const& str_p)
 {
+	if (str_p == "Resilient")
+	{
+		return ArmorType::Resilient;
+	}
+	if (str_p == "Heavy")
+	{
+		return ArmorType::Heavy;
+	}
+	if (str_p == "Light")
+	{
+		return ArmorType::Light;
+	}
 	return ArmorType::Standard;
 }

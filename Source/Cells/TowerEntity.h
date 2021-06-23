@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
 #include <vector>
 
 #include "TowerEntity.generated.h"
 
-class Slot;
+class AAttackModifier;
+class ASlot;
 
 UCLASS()
 class CELLS_API ATowerEntity : public AActor
@@ -40,5 +40,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
 		int maxSlots;
 
-	std::vector<Slot*> _slots;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
+		TArray<ASlot*> slots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
+		AAttackModifier * attackModifier;
+
+	/// @brief get full attack speed (taking multiplier into account)
+	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
+		float getAttackSpeed() const;
+	/// @brief get full damages (taking multiplier into account)
+	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
+		float getDamage() const;
+	/// @brief get full ranges (taking multiplier into account)
+	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
+		float getRange() const;
 };

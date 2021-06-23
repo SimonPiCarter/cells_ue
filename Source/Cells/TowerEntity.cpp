@@ -3,12 +3,15 @@
 
 #include "TowerEntity.h"
 
+#include "Logic/Slot/AttackModifier.h"
+
 // Sets default values
 ATowerEntity::ATowerEntity()
 	: multAttackSpeed(1.)
 	, multDamage(1.)
 	, bonusRange(1.)
 	, maxSlots(2)
+	, attackModifier(nullptr)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -29,3 +32,19 @@ void ATowerEntity::Tick(float DeltaTime)
 
 }
 
+/// @brief get full attack speed (taking multiplier into account)
+float ATowerEntity::getAttackSpeed() const
+{
+	return (attackModifier ? attackModifier->speed : 1.) * multAttackSpeed;
+}
+
+/// @brief get full damages (taking multiplier into account)
+float ATowerEntity::getDamage() const
+{
+	return (attackModifier ? attackModifier->damage : 1.) * multDamage;
+}
+/// @brief get full ranges (taking multiplier into account)
+float ATowerEntity::getRange() const
+{
+	return (attackModifier ? attackModifier->range : 0.) + + bonusRange;
+}

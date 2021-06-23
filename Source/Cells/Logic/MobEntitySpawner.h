@@ -6,7 +6,7 @@
 
 #include "MapLayout.h"
 
-class WaveEngine;
+class UWaveEngine;
 class ABluePrintLibrary;
 
 /**
@@ -15,7 +15,7 @@ class ABluePrintLibrary;
 class CELLS_API MobEntitySpawner
 {
 public:
-	MobEntitySpawner(ABluePrintLibrary* library_p, WaveEngine &engine_p, WaveLayout const& layout_p, MapLayout const& map_p);
+	MobEntitySpawner(ABluePrintLibrary* library_p, UWaveEngine &engine_p, WaveLayout const& layout_p, MapLayout const& map_p);
 	~MobEntitySpawner();
 
 	bool spawn(float elapsedTime_p);
@@ -25,7 +25,7 @@ protected:
 	int _mobSpawned;
 
 	ABluePrintLibrary* const _library;
-	WaveEngine& _engine;
+	UWaveEngine& _engine;
 
 	WaveLayout const _layout;
 	MapLayout const& _map;

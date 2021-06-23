@@ -57,7 +57,8 @@ void ALogicEngine::runlogic(float elapsedTime_p)
 	{
 		waveRunning = true;
 		// spawn next wave
-		_waveEngine = new WaveEngine(*this, library, **_itCurrentWave, *_mapLayout);
+		_waveEngine = NewObject<UWaveEngine>(this, UWaveEngine::StaticClass());
+		_waveEngine->init(*this, library, ** _itCurrentWave, * _mapLayout);
 
 		time = 0.;
 		++waveCount;
@@ -78,6 +79,11 @@ void ALogicEngine::despawnMob(AMobEntity* mob_p)
 	life -= mob_p->damageLife;
 }
 
+void ALogicEngine::killMob(AMobEntity* mob_p)
+{
+	scraps += mob_p->scrapReward;
+}
+
 int ALogicEngine::getMobLeft()
 {
 	return _waveEngine ? _waveEngine->getMobSpawned() : 0;
@@ -94,7 +100,10 @@ TArray<AMobEntity*> ALogicEngine::getClosestMobFromPosition(FVector2D pos, float
 			ignored_l.insert(mob_l);
 		}
 		AMobEntity * mob_l = _waveEngine->getTree().getClosestFromPosition({ pos.X , pos.Y }, radius, ignored_l);
-		array_l.Push(mob_l);
+		if (mob_l)
+		{
+			array_l.Push(mob_l);
+		}
 	}
 	return array_l;
 }
@@ -125,4 +134,9 @@ TArray<AMobEntity*> ALogicEngine::getAllMobWithinLine(FVector2D pos, FVector2D t
 		}
 	}
 	return array_l;
+}
+
+void ALogicEngine::spawnTower(ATowerEntity* tower)
+{
+	_towers.push_back(tower);
 }

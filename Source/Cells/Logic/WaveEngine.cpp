@@ -6,55 +6,89 @@
 
 #include "../MobEntity.h"
 
-WaveEngine::WaveEngine(ALogicEngine& engine_p, ABluePrintLibrary* library_p, WaveLayout const& layout_p, MapLayout const& map_p)
-	: _engine(engine_p)
-	, _mover(*this)
-	, _spawner(library_p, *this, layout_p, map_p)
+UWaveEngine::UWaveEngine()
+	: _engine(nullptr)
+	, _mover(nullptr)
+	, _spawner(nullptr)
+	, _atkBuilder(nullptr)
 	, _spawnOver(false)
 	, _despawnedMob(0)
-	, _tree(map_p.boundingBox, 100, 0.)
+	, _tree(nullptr)
 {
 
 }
 
-WaveEngine::~WaveEngine()
+UWaveEngine::~UWaveEngine()
 {
+	delete _mover;
+	delete _spawner;
+	delete _atkBuilder;
+	delete _tree;
 }
 
-void WaveEngine::runlogic(float elapsedTime_p)
+void UWaveEngine::init(ALogicEngine& engine_p, ABluePrintLibrary* library_p, WaveLayout const& layout_p, MapLayout const& map_p)
+{
+	_engine = &engine_p;
+	_mover = new MobEntityMover(*this);
+	_spawner = new MobEntitySpawner(library_p, *this, layout_p, map_p);
+	_atkBuilder = new AttackBuilder(*this);
+	_tree = new PositionalTree<AMobEntity>(map_p.boundingBox, 100, 0.);
+}
+
+void UWaveEngine::runlogic(float elapsedTime_p)
 {
 	// Spawn mob
 	if (!_spawnOver)
 	{
-		_spawnOver = _spawner.spawn(elapsedTime_p);
+		_spawnOver = _spawner->spawn(elapsedTime_p);
 	}
 
 	// Compute mob movement
 	// Apply movement and update octrees
-	_mover.moveEntities(_mobs, elapsedTime_p);
+	_mover->moveEntities(_mobs, elapsedTime_p);
+
+	_atkBuilder->buildAttacks(elapsedTime_p);
+
+	for (AMobEntity* mob_l : _mobs)
+	{
+		if (mob_l->isEnabled() && mob_l->hitpoint <= 0)
+		{
+			killMob(mob_l);
+		}
+	}
 }
 
-void WaveEngine::spawnMob(AMobEntity* mob_p)
+void UWaveEngine::spawnMob(AMobEntity* mob_p)
 {
-	_mobs.push_back(mob_p);
-	_tree.addContent(_mobs.back());
+	_mobs.Add(mob_p);
+	_tree->addContent(mob_p);
 }
 
-void WaveEngine::despawnMob(AMobEntity* mob_p)
+void UWaveEngine::despawnMob(AMobEntity* mob_p)
 {
 	++_despawnedMob;
-	_tree.removeContent(mob_p);
+	_tree->removeContent(mob_p);
 	// disable mob
 	mob_p->disable();
 	mob_p->despawn();
-	_engine.despawnMob(mob_p);
+	_engine->despawnMob(mob_p);
 }
 
-void WaveEngine::moveMob(AMobEntity* mob_p, std::array<double, 2> const& oldPos_p, std::array<double, 2> const& newPos_p)
+void UWaveEngine::killMob(AMobEntity* mob_p)
+{
+	++_despawnedMob;
+	_tree->removeContent(mob_p);
+	// disable mob
+	mob_p->disable();
+	mob_p->despawn();
+	_engine->killMob(mob_p);
+}
+
+void UWaveEngine::moveMob(AMobEntity* mob_p, std::array<double, 2> const& oldPos_p, std::array<double, 2> const& newPos_p)
 {
 	if (mob_p->isAtLastCheckPoint() && mob_p->isEnabled())
 	{
 		despawnMob(mob_p);
 	}
-	_tree.updatePositionFromNode(*mob_p, oldPos_p, newPos_p);
+	_tree->updatePositionFromNode(*mob_p, oldPos_p, newPos_p);
 }

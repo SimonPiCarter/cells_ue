@@ -18,7 +18,7 @@ AMobEntity::AMobEntity()
 	, size(1.)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 void AMobEntity::disable()
@@ -61,11 +61,6 @@ void AMobEntity::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-}
-
-void AMobEntity::setArmorType(FString const & str_p)
-{
-	armorType = fromStringToArmorType(std::string(TCHAR_TO_UTF8(*str_p)));
 }
 
 bool AMobEntity::isAtLastCheckPoint()

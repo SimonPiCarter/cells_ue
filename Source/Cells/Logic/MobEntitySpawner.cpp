@@ -9,7 +9,7 @@
 #include "WaveEngine.h"
 #include "../MobEntity.h"
 
-MobEntitySpawner::MobEntitySpawner(ABluePrintLibrary* library_p, WaveEngine& engine_p, WaveLayout const& layout_p, MapLayout const& map_p)
+MobEntitySpawner::MobEntitySpawner(ABluePrintLibrary* library_p, UWaveEngine& engine_p, WaveLayout const& layout_p, MapLayout const& map_p)
     : _mobSpawned(0)
     , _library(library_p)
     , _engine(engine_p)

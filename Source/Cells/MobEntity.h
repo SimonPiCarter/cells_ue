@@ -33,8 +33,6 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	ArmorType armorType;
 
 	bool _first;
 	std::list<std::array<double, 2> >::iterator _currentCheckPoint;
@@ -70,13 +68,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
 		float size;
 
-	UFUNCTION(BlueprintCallable, Category = "MobEntity")
-		void setArmorType(FString const& str_p);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MobEntity")
+		ArmorType armorType;
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "MobEntity")
 		void despawn();
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "MobEntity")
+		void damage(float val);
+
 	bool isAtLastCheckPoint();
 	void incrementCheckPoint();
 	std::array<double, 2> const& getCurrentCheckPoint();
+
+	ArmorType getArmorType() { return armorType;  }
 };

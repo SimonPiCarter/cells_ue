@@ -9,7 +9,10 @@
 
 #include "MobEntityMover.h"
 #include "MobEntitySpawner.h"
+#include "AttackBuilder.h"
 #include "PositionTree.h"
+
+#include "WaveEngine.generated.h"
 
 class ABluePrintLibrary;
 class AMobEntity;
@@ -20,35 +23,43 @@ struct MapLayout;
 /**
  * 
  */
-class CELLS_API WaveEngine
+UCLASS()
+class CELLS_API UWaveEngine : public UObject
 {
+	GENERATED_BODY()
 public:
-	WaveEngine(ALogicEngine&engine_p, ABluePrintLibrary* library_p, WaveLayout const& layout_p, MapLayout const& map_p);
-	~WaveEngine();
+	UWaveEngine();
+	~UWaveEngine();
 
+	void init(ALogicEngine& engine_p, ABluePrintLibrary* library_p, WaveLayout const& layout_p, MapLayout const& map_p);
 	void runlogic(float elapsedTime_p);
 
 	int getMobSpawned() const {
-		return _spawner.getMobSpawned() - _despawnedMob;
+		return _spawner->getMobSpawned() - _despawnedMob;
 	}
 
 	void spawnMob(AMobEntity* mob_p);
 	void despawnMob(AMobEntity* mob_p);
+	void killMob(AMobEntity* mob_p);
 	void moveMob(AMobEntity* mob_p, std::array<double, 2> const& oldPos_p, std::array<double, 2> const& newPos_p);
 
 	PositionalTree<AMobEntity>& getTree() {
-		return _tree;
+		return *_tree;
 	}
 
+	ALogicEngine& getLogic() { return *_engine; }
+
 protected:
-	ALogicEngine& _engine;
-	MobEntityMover _mover;
-	MobEntitySpawner _spawner;
+	ALogicEngine* _engine;
+	MobEntityMover* _mover;
+	MobEntitySpawner* _spawner;
+	AttackBuilder* _atkBuilder;
 
 	bool _spawnOver;
 	int _despawnedMob;
 
-	std::list<AMobEntity*> _mobs;
+	UPROPERTY()
+		TArray<AMobEntity*> _mobs;
 
-	PositionalTree<AMobEntity> _tree;
+	PositionalTree<AMobEntity> * _tree;
 };

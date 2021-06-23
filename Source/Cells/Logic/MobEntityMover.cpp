@@ -6,7 +6,7 @@
 #include "../MobEntity.h"
 #include "WaveEngine.h"
 
-MobEntityMover::MobEntityMover(WaveEngine& waveEngine_p) : _waveEngine(waveEngine_p)
+MobEntityMover::MobEntityMover(UWaveEngine& waveEngine_p) : _waveEngine(waveEngine_p)
 {
 }
 
@@ -14,7 +14,7 @@ MobEntityMover::~MobEntityMover()
 {
 }
 
-void MobEntityMover::moveEntities(std::list<AMobEntity*> mobs_p, float elapsedTime_p)
+void MobEntityMover::moveEntities(TArray< AMobEntity*> const& mobs_p, float elapsedTime_p)
 {
 	for (AMobEntity* mob_l : mobs_p)
 	{

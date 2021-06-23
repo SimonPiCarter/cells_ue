@@ -10,10 +10,10 @@
 class ABluePrintLibrary;
 class AMapLayout;
 class AMobEntity;
-class WaveEngine;
+class ATowerEntity;
+class UWaveEngine;
 struct MapLayout;
 struct WaveLayout;
-
 
 /**
  * 
@@ -31,6 +31,7 @@ public:
 	virtual void runlogic(float elapsedTime_p);
 
 	void despawnMob(AMobEntity* mob_p);
+	void killMob(AMobEntity* mob_p);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
 		float time;
@@ -68,10 +69,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		TArray<AMobEntity*> getAllMobWithinLine(FVector2D pos, FVector2D target, float range);
 
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		void spawnTower(ATowerEntity* tower);
+
+
+	std::list<ATowerEntity*> const& getTowers() const { return _towers; }
+	std::list<ATowerEntity*>& getTowers() { return _towers; }
+
 protected:
-	WaveEngine* _waveEngine;
+	UPROPERTY()
+		UWaveEngine* _waveEngine;
 
 	MapLayout * _mapLayout;
 	std::list<WaveLayout*> _waveLayouts;
 	std::list<WaveLayout*>::iterator _itCurrentWave;
+
+	/// @brief list of tower
+	std::list<ATowerEntity*> _towers;
 };
