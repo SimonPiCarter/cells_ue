@@ -10,6 +10,7 @@
 class ABluePrintLibrary;
 class AMapLayout;
 class AMobEntity;
+class ASlot;
 class ATowerEntity;
 class UWaveEngine;
 struct MapLayout;
@@ -56,6 +57,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
 		ABluePrintLibrary* library;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
+		TArray<ASlot*> invetory;
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		int getMobLeft();
