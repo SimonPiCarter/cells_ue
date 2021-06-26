@@ -20,6 +20,8 @@ class CELLS_API AAttackModifier : public ASlot
 	GENERATED_BODY()
 
 public:
+	AAttackModifier();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackModifier")
 		float speed;
 

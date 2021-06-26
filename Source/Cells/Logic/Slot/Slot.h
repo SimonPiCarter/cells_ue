@@ -14,6 +14,7 @@ class CELLS_API ASlot : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASlot();
+	ASlot(bool attackModifier_p);
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,4 +33,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot")
 		FString description;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Slot")
+		bool isAttackModifier;
 };

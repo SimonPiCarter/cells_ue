@@ -74,6 +74,12 @@ public:
 		TArray<AMobEntity*> getAllMobWithinLine(FVector2D pos, FVector2D target, float range);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		void consumeSlots(TArray<ASlot*> const& slots);
+
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		void removeSlotsFromInventory(TArray<ASlot*> const& slots);
+
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		void spawnTower(ATowerEntity* tower);
 
 

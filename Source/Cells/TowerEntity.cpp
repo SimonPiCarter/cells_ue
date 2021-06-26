@@ -3,6 +3,8 @@
 
 #include "TowerEntity.h"
 
+#include <cassert>
+
 #include "Logic/Slot/AttackModifier.h"
 
 // Sets default values
@@ -30,6 +32,26 @@ void ATowerEntity::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+TArray<ASlot*> ATowerEntity::updateSlots(AAttackModifier* newAttackModifier, TArray<ASlot*> newSlots)
+{
+	TArray<ASlot*> removedSlots_l;
+	if (attackModifier != newAttackModifier)
+	{
+		removedSlots_l.Add(attackModifier);
+	}
+	attackModifier = newAttackModifier;
+
+	for (long i = 0; i < slots.Num() && i < newSlots.Num(); ++i)
+	{
+		if (newSlots[i] != slots[i])
+		{
+			removedSlots_l.Add(slots[i]);
+		}
+		slots[i] = newSlots[i];
+	}
+	return removedSlots_l;
 }
 
 /// @brief get full attack speed (taking multiplier into account)

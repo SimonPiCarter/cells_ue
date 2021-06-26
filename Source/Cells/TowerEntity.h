@@ -46,6 +46,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
 		AAttackModifier * attackModifier;
 
+	/// @brief update slots and return all removed slots
+	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
+		TArray<ASlot*> updateSlots(AAttackModifier* newAttackModifier, TArray<ASlot*> newSlots);
+
 	/// @brief get full attack speed (taking multiplier into account)
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
 		float getAttackSpeed() const;

@@ -5,6 +5,9 @@
 
 #include <sstream>
 
+AAttackModifier::AAttackModifier() : ASlot(true)
+{}
+
 FString AAttackModifier::buildBasicDesc()
 {
 	std::stringstream ss_l;

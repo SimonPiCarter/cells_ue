@@ -5,6 +5,7 @@
 
 #include "MapLayout.h"
 #include "WaveEngine.h"
+#include "Slot/Slot.h"
 #include "../MobEntity.h"
 
 ALogicEngine::ALogicEngine()
@@ -139,4 +140,22 @@ TArray<AMobEntity*> ALogicEngine::getAllMobWithinLine(FVector2D pos, FVector2D t
 void ALogicEngine::spawnTower(ATowerEntity* tower)
 {
 	_towers.push_back(tower);
+}
+
+void ALogicEngine::consumeSlots(TArray<ASlot*> const& slots)
+{
+	for (ASlot* slot_l : slots)
+	{
+		// gain scrap even if out of inventory (in case of tower consumption)
+		scraps += slot_l->level;
+	}
+}
+
+void ALogicEngine::removeSlotsFromInventory(TArray<ASlot*> const& slots)
+{
+	for (ASlot* slot_l : slots)
+	{
+		// remove from inventory
+		invetory.Remove(slot_l);
+	}
 }
