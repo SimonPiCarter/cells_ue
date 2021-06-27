@@ -15,7 +15,7 @@ class CELLS_API AAttackEffect : public AEffect
 {
 	GENERATED_BODY()
 public:
-	virtual void runEffect(float elapsedTime_p) final;
+	virtual void runEffect(float elapsedTime_p, float remainingTime_p) final;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
 		float damage;

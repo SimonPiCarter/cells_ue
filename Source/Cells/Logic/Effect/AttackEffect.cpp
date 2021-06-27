@@ -4,7 +4,7 @@
 #include "AttackEffect.h"
 #include "../../MobEntity.h"
 
-void AAttackEffect::runEffect(float elapsedTime_p)
+void AAttackEffect::runEffect(float elapsedTime_p, float remainingTime_p)
 {
 	// multiplier based on damage and armor types
 		double mult_l = 1.;

@@ -33,7 +33,7 @@ void ALogic::Tick(float DeltaTime)
 		// consume time from the rendering system
 		accumulatedTime -= FixedTimeStep;
 		// run with fixed time
-		runlogic(FixedTimeStep);
+		runlogic(FixedTimeStep, accumulatedTime);
 	}
 }
 

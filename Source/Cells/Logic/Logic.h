@@ -21,7 +21,9 @@ protected:
 
 	// Called to consume a fixed amount of time
 	// every logic component using time should inherit this
-	virtual void runlogic(float elapsedTime_p) {} // shoulld be virtual pure
+	// @param elapsedTime_p the time to be consumed
+	// @param remaining accumulated time that can be passed on new generated logic component
+	virtual void runlogic(float elapsedTime_p, float remainingTime_p) {} // shoulld be virtual pure
 
 	static float FixedTimeStep;
 

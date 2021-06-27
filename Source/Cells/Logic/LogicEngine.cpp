@@ -27,7 +27,7 @@ ALogicEngine::~ALogicEngine()
 	delete _mapLayout;
 }
 
-void ALogicEngine::runlogic(float elapsedTime_p)
+void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 {
 	// if no map and map generator
 	if (map != nullptr && !_mapLayout)

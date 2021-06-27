@@ -8,10 +8,10 @@ AEffect::AEffect()
 	, over(false)
 {}
 
-void AEffect::runlogic(float elapsedTime_p)
+void AEffect::runlogic(float elapsedTime_p, float remainingTime_p)
 {
 	if (!onHold && !over)
 	{
-		runEffect(elapsedTime_p);
+		runEffect(elapsedTime_p, remainingTime_p);
 	}
 }

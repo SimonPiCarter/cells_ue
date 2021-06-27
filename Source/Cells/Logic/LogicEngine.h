@@ -29,7 +29,7 @@ public:
 
 	// Called to consume a fixed amount of time
 	// every logic component using time should inherit this
-	virtual void runlogic(float elapsedTime_p);
+	virtual void runlogic(float elapsedTime_p, float remainingTime_p);
 
 	void despawnMob(AMobEntity* mob_p);
 	void killMob(AMobEntity* mob_p);

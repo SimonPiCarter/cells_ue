@@ -19,9 +19,9 @@ class CELLS_API AEffect : public ALogic
 public:
 	AEffect();
 
-	virtual void runlogic(float elapsedTime_p) final;
+	virtual void runlogic(float elapsedTime_p, float remainingTime_p) final;
 
-	virtual void runEffect(float elapsedTime_p) {}
+	virtual void runEffect(float elapsedTime_p, float remainingTime_p) {}
 
 	bool isOver() const { return over; }
 protected:
