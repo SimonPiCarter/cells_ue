@@ -8,22 +8,25 @@
 
 class AMobEntity;
 class ATowerEntity;
+class ALogicEngine;
 
 /**
  * 
  */
 UCLASS()
-class CELLS_API AEffect : public ALogic
+class CELLS_API UEffect : public UObject
 {
 	GENERATED_BODY()
 public:
-	AEffect();
+	UEffect();
 
-	virtual void runlogic(float elapsedTime_p, float remainingTime_p) final;
+	virtual void runlogic(float elapsedTime_p) final;
 
-	virtual void runEffect(float elapsedTime_p, float remainingTime_p) {}
+	virtual void runEffect(float elapsedTime_p) {}
 
 	bool isOver() const { return over; }
+
+	void setLogic(ALogicEngine* logic_p) { logic = logic_p; }
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 		AMobEntity * target;
@@ -36,4 +39,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 		bool over;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
+		ALogicEngine* logic;
 };

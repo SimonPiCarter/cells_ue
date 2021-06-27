@@ -10,12 +10,12 @@
 /**
  * 
  */
-UCLASS()
-class CELLS_API AAttackEffect : public AEffect
+UCLASS(BlueprintType)
+class CELLS_API UAttackEffect : public UEffect
 {
 	GENERATED_BODY()
 public:
-	virtual void runEffect(float elapsedTime_p, float remainingTime_p) final;
+	virtual void runEffect(float elapsedTime_p) final;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
 		float damage;

@@ -5,6 +5,8 @@
 
 #include "MapLayout.h"
 #include "WaveEngine.h"
+#include "Effect/Effect.h"
+#include "Effect/EffectList.h"
 #include "Slot/Slot.h"
 #include "../MobEntity.h"
 #include "../TowerEntity.h"
@@ -17,6 +19,7 @@ ALogicEngine::ALogicEngine()
 	, waveRunning(true)
 	, onHold(false)
 	, map(nullptr)
+	, effects(nullptr)
 	, _waveEngine(nullptr)
 	, _mapLayout(nullptr)
 	, _waveLayouts()
@@ -29,6 +32,10 @@ ALogicEngine::~ALogicEngine()
 
 void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 {
+	if (nullptr == effects)
+	{
+		effects = NewObject<UEffectList>(this);
+	}
 	// if no map and map generator
 	if (map != nullptr && !_mapLayout)
 	{
@@ -78,6 +85,21 @@ void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 
 		// update wave engine
 		_waveEngine->runlogic(elapsedTime_p);
+	}
+
+	// handle effect
+	UEffectNode * node_l = effects->head;
+	while (nullptr != node_l)
+	{
+		node_l->val->runlogic(elapsedTime_p);
+
+		UEffectNode* next_l = node_l->next;
+		// if effect is over remove from list
+		if (node_l->val->isOver())
+		{
+			effects->Remove(node_l);
+		}
+		node_l = next_l;
 	}
 }
 
@@ -152,6 +174,12 @@ bool ALogicEngine::spawnTower(ATowerEntity* tower)
 		return true;
 	}
 	return false;
+}
+
+void ALogicEngine::registerEffect(UEffect* effect)
+{
+	effect->setLogic(this);
+	effects->Add(effect);
 }
 
 void ALogicEngine::consumeSlots(TArray<ASlot*> const& slots)

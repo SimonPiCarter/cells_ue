@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Logic.h"
 #include <list>
+
+#include <Containers/List.h>
 #include "LogicEngine.generated.h"
 
 class ABluePrintLibrary;
@@ -12,6 +14,8 @@ class AMapLayout;
 class AMobEntity;
 class ASlot;
 class ATowerEntity;
+class UEffect;
+class UEffectList;
 class UWaveEngine;
 struct MapLayout;
 struct WaveLayout;
@@ -20,7 +24,7 @@ struct WaveLayout;
  * 
  */
 UCLASS()
-class CELLS_API ALogicEngine : public ALogic
+class CELLS_API ALogicEngine : public ALogicActor
 {
 	GENERATED_BODY()
 public:
@@ -64,6 +68,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "LogicEngine")
 		TArray<ATowerEntity*> towers;
 
+	UPROPERTY(BlueprintReadOnly, Category = "LogicEngine")
+		UEffectList* effects;
+
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		int getMobLeft();
 
@@ -84,6 +91,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		bool spawnTower(ATowerEntity* tower);
+
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		void registerEffect(UEffect * effect);
 
 protected:
 	UPROPERTY()

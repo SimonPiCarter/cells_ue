@@ -3,15 +3,15 @@
 
 #include "Effect.h"
 
-AEffect::AEffect()
+UEffect::UEffect()
 	: onHold(false)
 	, over(false)
 {}
 
-void AEffect::runlogic(float elapsedTime_p, float remainingTime_p)
+void UEffect::runlogic(float elapsedTime_p)
 {
 	if (!onHold && !over)
 	{
-		runEffect(elapsedTime_p, remainingTime_p);
+		runEffect(elapsedTime_p);
 	}
 }
