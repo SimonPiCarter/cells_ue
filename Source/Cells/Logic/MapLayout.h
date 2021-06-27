@@ -13,6 +13,18 @@
 
 #include "MapLayout.generated.h"
 
+class ABluePrintLibrary;
+
+struct TileLayout
+{
+	std::string tile_category;
+	std::string tile_name;
+	double x;
+	double y;
+	int height;
+	bool constructible;
+};
+
 struct MobEntityLayout
 {
 	std::string mob_category;
@@ -53,6 +65,8 @@ protected:
 
 	std::unordered_map<int, WaveLayout*> _waves;
 
+	std::list<TileLayout> _tiles;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -69,11 +83,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapLayout")
 		FVector2D size;
 
-	UFUNCTION(BlueprintCallable, Category = "MapLayout")
-		void addMobEntityLayout(int wave_p, FString const& cat_p, FString const& name_p, int qty_p, float delay_p);
+	UPROPERTY(BlueprintReadOnly, Category = "MapLayout")
+		TArray<AActor*> tiles;
 
 	UFUNCTION(BlueprintCallable, Category = "MapLayout")
-		void setWaveTimeToPrepare(int wave_p, float delay_p);
+		void addMobEntityLayout(int wave, FString const& cat, FString const& name, int qty, float delay);
 
+	UFUNCTION(BlueprintCallable, Category = "MapLayout")
+		void setWaveTimeToPrepare(int wave, float delay);
 
+	UFUNCTION(BlueprintCallable, Category = "MapLayout")
+		void addTile(FString const& cat, FString const& name, float x, float y, int height, bool constructible);
+
+	void spawnMap(ABluePrintLibrary* library_p);
 };

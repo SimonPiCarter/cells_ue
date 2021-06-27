@@ -3,6 +3,8 @@
 
 #include "MapLayout.h"
 
+#include "BluePrintLibrary.h"
+
 // Sets default values
 AMapLayout::AMapLayout()
 {
@@ -84,4 +86,30 @@ void AMapLayout::setWaveTimeToPrepare(int wave_p, float delay_p)
 		_waves[wave_p] = new WaveLayout();
 	}
 	_waves[wave_p]->time = delay_p;
+}
+
+void AMapLayout::addTile(FString const& cat, FString const& name, float x, float y, int height, bool constructible)
+{
+	TileLayout tile_l;
+	tile_l.tile_category = TCHAR_TO_UTF8(*cat);
+	tile_l.tile_name = TCHAR_TO_UTF8(*name);
+	tile_l.x = x;
+	tile_l.y = y;
+	tile_l.height = height;
+	tile_l.constructible = constructible;
+
+	_tiles.push_back(tile_l);
+}
+
+void AMapLayout::spawnMap(ABluePrintLibrary* library_p)
+{
+	UWorld* const world_l = library_p->GetWorld();
+	for (TileLayout const& tile_l : _tiles)
+	{
+		UBlueprint* spawnedBlueprint_l = library_p->getBluePrint(tile_l.tile_category, tile_l.tile_name);
+		// spawn
+		FActorSpawnParameters SpawnParams;
+		AActor* spawnedTile_l = world_l->SpawnActor<AActor>((UClass*)spawnedBlueprint_l->GeneratedClass, FVector(tile_l.x, tile_l.y, tile_l.height), FRotator(0, 0, 0), SpawnParams);
+		tiles.Add(spawnedTile_l);
+	}
 }
