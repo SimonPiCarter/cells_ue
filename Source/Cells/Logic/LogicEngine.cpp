@@ -36,6 +36,10 @@ void ALogicEngine::runlogic(float elapsedTime_p)
 		_waveLayouts = map->getWaveLayouts();
 		_itCurrentWave = _waveLayouts.begin();
 		map->spawnMap(library);
+		if (_itCurrentWave != _waveLayouts.end())
+		{
+			time = (*_itCurrentWave)->time;
+		}
 	}
 
 	// on hold do nothing
