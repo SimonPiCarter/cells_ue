@@ -5,10 +5,10 @@
 
 #include <sstream>
 
-AAttackModifier::AAttackModifier() : ASlot(true)
+UAttackModifier::UAttackModifier() : USlot(true)
 {}
 
-FString AAttackModifier::buildBasicDesc()
+FString UAttackModifier::buildBasicDesc()
 {
 	std::stringstream ss_l;
 	ss_l << "Deal " << damage << " damages of type " << _damageType << " with an attack speed of " << 1 / speed

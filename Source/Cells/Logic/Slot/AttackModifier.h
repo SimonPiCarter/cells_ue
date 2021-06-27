@@ -15,12 +15,12 @@ class ATowerEntity;
  * 
  */
 UCLASS()
-class CELLS_API AAttackModifier : public ASlot
+class CELLS_API UAttackModifier : public USlot
 {
 	GENERATED_BODY()
 
 public:
-	AAttackModifier();
+	UAttackModifier();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackModifier")
 		float speed;

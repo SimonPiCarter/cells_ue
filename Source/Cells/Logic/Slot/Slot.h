@@ -6,24 +6,17 @@
 #include "GameFramework/Actor.h"
 #include "Slot.generated.h"
 
-UCLASS()
-class CELLS_API ASlot : public AActor
+UCLASS(BlueprintType)
+class CELLS_API USlot : public UObject
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASlot();
-	ASlot(bool attackModifier_p);
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	USlot();
+	USlot(bool attackModifier_p);
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot")
 		int level;
 

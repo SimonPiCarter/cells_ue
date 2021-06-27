@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS()
 class CELLS_API UAttackEffect : public UEffect
 {
 	GENERATED_BODY()

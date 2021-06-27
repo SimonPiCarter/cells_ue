@@ -12,7 +12,7 @@
 class ABluePrintLibrary;
 class AMapLayout;
 class AMobEntity;
-class ASlot;
+class USlot;
 class ATowerEntity;
 class UEffect;
 class UEffectList;
@@ -63,7 +63,7 @@ public:
 		ABluePrintLibrary* library;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
-		TArray<ASlot*> invetory;
+		TArray<USlot*> invetory;
 
 	UPROPERTY(BlueprintReadOnly, Category = "LogicEngine")
 		TArray<ATowerEntity*> towers;
@@ -84,10 +84,10 @@ public:
 		TArray<AMobEntity*> getAllMobWithinLine(FVector2D pos, FVector2D target, float range);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
-		void consumeSlots(TArray<ASlot*> const& slots);
+		void consumeSlots(TArray<USlot*> const& slots);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
-		void removeSlotsFromInventory(TArray<ASlot*> const& slots);
+		void removeSlotsFromInventory(TArray<USlot*> const& slots);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		bool spawnTower(ATowerEntity* tower);

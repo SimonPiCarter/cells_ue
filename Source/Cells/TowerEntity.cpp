@@ -35,9 +35,9 @@ void ATowerEntity::Tick(float DeltaTime)
 
 }
 
-TArray<ASlot*> ATowerEntity::updateSlots(AAttackModifier* newAttackModifier, TArray<ASlot*> newSlots)
+TArray<USlot*> ATowerEntity::updateSlots(UAttackModifier* newAttackModifier, TArray<USlot*> newSlots)
 {
-	TArray<ASlot*> removedSlots_l;
+	TArray<USlot*> removedSlots_l;
 	if (attackModifier != newAttackModifier)
 	{
 		removedSlots_l.Add(attackModifier);

@@ -182,18 +182,18 @@ void ALogicEngine::registerEffect(UEffect* effect)
 	effects->Add(effect);
 }
 
-void ALogicEngine::consumeSlots(TArray<ASlot*> const& slots)
+void ALogicEngine::consumeSlots(TArray<USlot*> const& slots)
 {
-	for (ASlot* slot_l : slots)
+	for (USlot* slot_l : slots)
 	{
 		// gain scrap even if out of inventory (in case of tower consumption)
 		scraps += slot_l->level;
 	}
 }
 
-void ALogicEngine::removeSlotsFromInventory(TArray<ASlot*> const& slots)
+void ALogicEngine::removeSlotsFromInventory(TArray<USlot*> const& slots)
 {
-	for (ASlot* slot_l : slots)
+	for (USlot* slot_l : slots)
 	{
 		// remove from inventory
 		invetory.Remove(slot_l);

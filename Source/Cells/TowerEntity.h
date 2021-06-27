@@ -8,8 +8,8 @@
 
 #include "TowerEntity.generated.h"
 
-class AAttackModifier;
-class ASlot;
+class UAttackModifier;
+class USlot;
 
 UCLASS()
 class CELLS_API ATowerEntity : public AActor
@@ -44,14 +44,14 @@ public:
 		int cost;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
-		TArray<ASlot*> slots;
+		TArray<USlot*> slots;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
-		AAttackModifier * attackModifier;
+		UAttackModifier* attackModifier;
 
 	/// @brief update slots and return all removed slots
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
-		TArray<ASlot*> updateSlots(AAttackModifier* newAttackModifier, TArray<ASlot*> newSlots);
+		TArray<USlot*> updateSlots(UAttackModifier* newAttackModifier, TArray<USlot*> newSlots);
 
 	/// @brief get full attack speed (taking multiplier into account)
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")

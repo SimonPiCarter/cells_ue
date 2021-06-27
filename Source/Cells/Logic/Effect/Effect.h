@@ -13,7 +13,7 @@ class ALogicEngine;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CELLS_API UEffect : public UObject
 {
 	GENERATED_BODY()
