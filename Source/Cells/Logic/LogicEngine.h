@@ -61,6 +61,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
 		TArray<ASlot*> invetory;
 
+	UPROPERTY(BlueprintReadOnly, Category = "LogicEngine")
+		TArray<ATowerEntity*> towers;
+
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		int getMobLeft();
 
@@ -80,11 +83,7 @@ public:
 		void removeSlotsFromInventory(TArray<ASlot*> const& slots);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
-		void spawnTower(ATowerEntity* tower);
-
-
-	std::list<ATowerEntity*> const& getTowers() const { return _towers; }
-	std::list<ATowerEntity*>& getTowers() { return _towers; }
+		bool spawnTower(ATowerEntity* tower);
 
 protected:
 	UPROPERTY()
@@ -93,7 +92,4 @@ protected:
 	MapLayout * _mapLayout;
 	std::list<WaveLayout*> _waveLayouts;
 	std::list<WaveLayout*>::iterator _itCurrentWave;
-
-	/// @brief list of tower
-	std::list<ATowerEntity*> _towers;
 };

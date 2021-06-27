@@ -41,6 +41,9 @@ public:
 		int maxSlots;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
+		int cost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
 		TArray<ASlot*> slots;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")

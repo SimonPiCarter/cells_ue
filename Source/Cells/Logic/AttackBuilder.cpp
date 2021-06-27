@@ -12,7 +12,7 @@ AttackBuilder::AttackBuilder(UWaveEngine& waveEngine_p)
 	: _waveEngine(waveEngine_p)
 {
 	// Create AttackInfos
-	for (ATowerEntity* tower_l : _waveEngine.getLogic().getTowers())
+	for (ATowerEntity* tower_l : _waveEngine.getLogic().towers)
 	{
 		_attackInfos.push_back({ tower_l, 0., nullptr });
 	}

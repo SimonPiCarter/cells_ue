@@ -7,6 +7,7 @@
 #include "WaveEngine.h"
 #include "Slot/Slot.h"
 #include "../MobEntity.h"
+#include "../TowerEntity.h"
 
 ALogicEngine::ALogicEngine()
 	: time(0.)
@@ -138,9 +139,15 @@ TArray<AMobEntity*> ALogicEngine::getAllMobWithinLine(FVector2D pos, FVector2D t
 	return array_l;
 }
 
-void ALogicEngine::spawnTower(ATowerEntity* tower)
+bool ALogicEngine::spawnTower(ATowerEntity* tower)
 {
-	_towers.push_back(tower);
+	if (scraps >= tower->cost)
+	{
+		towers.Add(tower);
+		scraps -= tower->cost;
+		return true;
+	}
+	return false;
 }
 
 void ALogicEngine::consumeSlots(TArray<ASlot*> const& slots)

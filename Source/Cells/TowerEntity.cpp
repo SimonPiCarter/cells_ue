@@ -13,6 +13,7 @@ ATowerEntity::ATowerEntity()
 	, multDamage(1.)
 	, bonusRange(1.)
 	, maxSlots(2)
+	, cost(20)
 	, attackModifier(nullptr)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
