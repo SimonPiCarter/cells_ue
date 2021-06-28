@@ -10,6 +10,7 @@
 #include "Slot/Slot.h"
 #include "../MobEntity.h"
 #include "../TowerEntity.h"
+#include "../Wave/WaveGenerator.h"
 
 ALogicEngine::ALogicEngine()
 	: time(0.)
@@ -21,8 +22,9 @@ ALogicEngine::ALogicEngine()
 	, map(nullptr)
 	, effects(nullptr)
 	, _waveEngine(nullptr)
+	, _waveGenerator(nullptr)
+	, _curWave(nullptr)
 	, _mapLayout(nullptr)
-	, _waveLayouts()
 {}
 
 ALogicEngine::~ALogicEngine()
@@ -37,15 +39,14 @@ void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 		effects = NewObject<UEffectList>(this);
 	}
 	// if no map and map generator
-	if (map != nullptr && !_mapLayout)
+	if (map != nullptr && !_mapLayout && nullptr != _waveGenerator)
 	{
 		_mapLayout = new MapLayout(map->getMapLayout());
-		_waveLayouts = map->getWaveLayouts();
-		_itCurrentWave = _waveLayouts.begin();
+		_curWave = _waveGenerator->getNextWavePackage();
 		map->spawnMap(library);
-		if (_itCurrentWave != _waveLayouts.end())
+		if (_curWave)
 		{
-			time = (*_itCurrentWave)->time;
+			time = _curWave->getWaveLayout().time;
 		}
 	}
 
@@ -67,12 +68,12 @@ void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 	}
 
 	// If wave is not running and time ran out
-	if (!waveRunning && time <= 0. && _itCurrentWave != _waveLayouts.end())
+	if (!waveRunning && time <= 0. && _curWave)
 	{
 		waveRunning = true;
 		// spawn next wave
 		_waveEngine = NewObject<UWaveEngine>(this, UWaveEngine::StaticClass());
-		_waveEngine->init(*this, library, ** _itCurrentWave, * _mapLayout);
+		_waveEngine->init(*this, library, _curWave->getWaveLayout(), *_mapLayout);
 
 		time = 0.;
 		++waveCount;
@@ -80,11 +81,26 @@ void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
 	// If wave is running
 	if (waveRunning)
 	{
-		// no more mob we spawn endwave events
-		// TODO
-
 		// update wave engine
 		_waveEngine->runlogic(elapsedTime_p);
+
+		// no more mob we spawn endwave events
+		if (_waveEngine->isWaveOver())
+		{
+			waveRunning = false;
+
+			// pop loots and event
+			showLootScreen(_curWave->getRewards());
+			onHold = true;
+			invetory.Append(_curWave->getRewards());
+
+			// next wave
+			_curWave = _waveGenerator->getNextWavePackage();
+			if (_curWave)
+			{
+				time = _curWave->getWaveLayout().time;
+			}
+		}
 	}
 
 	// handle effect

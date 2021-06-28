@@ -11,7 +11,7 @@ UAttackModifier::UAttackModifier() : USlot(true)
 FString UAttackModifier::buildBasicDesc()
 {
 	std::stringstream ss_l;
-	ss_l << "Deal " << damage << " damages of type " << _damageType << " with an attack speed of " << 1 / speed
+	ss_l << "Deal " << damage << " damages of type " << _damageType << " with an attack speed of " << speed
 		<< " attacks per second with a range of " << range << ".";
 
 	std::string str_l = ss_l.str();

@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Slot.generated.h"
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class CELLS_API USlot : public UObject
 {
 	GENERATED_BODY()

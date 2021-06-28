@@ -15,6 +15,8 @@ class AMobEntity;
 class USlot;
 class ATowerEntity;
 class UEffect;
+class UWaveGenerator;
+class UWavePackage;
 class UEffectList;
 class UWaveEngine;
 struct MapLayout;
@@ -95,11 +97,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		void registerEffect(UEffect * effect);
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "LogicEngine")
+		void showLootScreen(TArray<USlot*> const& slots);
+
 protected:
 	UPROPERTY()
 		UWaveEngine* _waveEngine;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LogicEngine")
+		UWaveGenerator* _waveGenerator;
+
+	UPROPERTY()
+		UWavePackage* _curWave;
+
 	MapLayout * _mapLayout;
-	std::list<WaveLayout*> _waveLayouts;
-	std::list<WaveLayout*>::iterator _itCurrentWave;
 };

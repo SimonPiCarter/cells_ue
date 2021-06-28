@@ -49,6 +49,8 @@ public:
 
 	ALogicEngine& getLogic() { return *_engine; }
 
+	bool isWaveOver() const { return _spawnOver && getMobSpawned() == 0; }
+
 protected:
 	ALogicEngine* _engine;
 	MobEntityMover* _mover;
