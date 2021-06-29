@@ -33,6 +33,13 @@ void UWaveEngine::init(ALogicEngine& engine_p, ABluePrintLibrary* library_p, Wav
 	_spawner = new MobEntitySpawner(library_p, *this, layout_p, map_p);
 	_atkBuilder = new AttackBuilder(*this);
 	_tree = new PositionalTree<AMobEntity>(map_p.boundingBox, 100, 0.);
+
+
+	_mobLeft = 0;
+	for (MobEntityLayout const& mobLayout_l : layout_p.mobLayout)
+	{
+		_mobLeft += mobLayout_l.quantity;
+	}
 }
 
 void UWaveEngine::runlogic(float elapsedTime_p)

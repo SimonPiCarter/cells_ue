@@ -25,11 +25,19 @@ ALogicEngine::ALogicEngine()
 	, _waveGenerator(nullptr)
 	, _curWave(nullptr)
 	, _mapLayout(nullptr)
+	, _random(new std::mt19937(42))
 {}
 
 ALogicEngine::~ALogicEngine()
 {
 	delete _mapLayout;
+	delete _random;
+}
+
+void ALogicEngine::initSeed(unsigned long seed_p)
+{
+	delete _random;
+	_random = new std::mt19937(seed_p);
 }
 
 void ALogicEngine::runlogic(float elapsedTime_p, float remainingTime_p)
@@ -131,7 +139,7 @@ void ALogicEngine::killMob(AMobEntity* mob_p)
 
 int ALogicEngine::getMobLeft()
 {
-	return _waveEngine ? _waveEngine->getMobSpawned() : 0;
+	return _waveEngine ? _waveEngine->getMobLeft() : 0;
 }
 
 TArray<AMobEntity*> ALogicEngine::getClosestMobFromPosition(FVector2D pos, float radius, TArray<AMobEntity*> ignored)
@@ -192,12 +200,6 @@ bool ALogicEngine::spawnTower(ATowerEntity* tower)
 	return false;
 }
 
-void ALogicEngine::registerEffect(UEffect* effect)
-{
-	effect->setLogic(this);
-	effects->Add(effect);
-}
-
 void ALogicEngine::consumeSlots(TArray<USlot*> const& slots)
 {
 	for (USlot* slot_l : slots)
@@ -214,4 +216,25 @@ void ALogicEngine::removeSlotsFromInventory(TArray<USlot*> const& slots)
 		// remove from inventory
 		invetory.Remove(slot_l);
 	}
+}
+
+void ALogicEngine::registerEffect(UEffect* effect)
+{
+	effect->setLogic(this);
+	effects->Add(effect);
+}
+
+float ALogicEngine::genUniform(float min, float max)
+{
+	std::uniform_real_distribution<double> distribution_l(min, max);
+	return distribution_l(*_random);
+}
+
+float ALogicEngine::genNormal(float avg, float width, float width_max)
+{
+	std::normal_distribution<double> distribution_l(0.f, 0.2f);
+	float deviation_l = distribution_l(*_random) * width;
+	deviation_l = std::min(width_max, std::max(-width_max, deviation_l));
+
+	return avg + deviation_l;
 }

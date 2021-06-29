@@ -38,6 +38,10 @@ public:
 		return _spawner->getMobSpawned() - _despawnedMob;
 	}
 
+	int getMobLeft() const {
+		return _mobLeft - _despawnedMob;
+	}
+
 	void spawnMob(AMobEntity* mob_p);
 	void despawnMob(AMobEntity* mob_p);
 	void killMob(AMobEntity* mob_p);
@@ -59,6 +63,7 @@ protected:
 
 	bool _spawnOver;
 	int _despawnedMob;
+	int _mobLeft;
 
 	UPROPERTY()
 		TArray<AMobEntity*> _mobs;

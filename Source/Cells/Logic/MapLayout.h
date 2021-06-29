@@ -31,6 +31,10 @@ struct MobEntityLayout
 	std::string mob_name;
 	int quantity;
 	float delay;
+	float maxHitpoint;
+	float speed;
+	float damageLife;
+	float scrapReward;
 };
 
 struct WaveLayout

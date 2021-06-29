@@ -46,6 +46,12 @@ bool MobEntitySpawner::spawn(float elapsedTime_p)
 		_engine.spawnMob(mob_l);
 		++_mobSpawned;
 
+		mob_l->hitpoint = _currentLayout->maxHitpoint;
+		mob_l->maxHitpoint = _currentLayout->maxHitpoint;
+		mob_l->speed = _currentLayout->speed;
+		mob_l->damageLife = _currentLayout->damageLife;
+		mob_l->scrapReward = _currentLayout->scrapReward;
+
 		// increment index
 		++_indexNext;
 

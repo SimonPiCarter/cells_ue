@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Logic.h"
 #include <list>
+#include <random>
 
 #include <Containers/List.h>
 #include "LogicEngine.generated.h"
@@ -32,6 +33,8 @@ class CELLS_API ALogicEngine : public ALogicActor
 public:
 	ALogicEngine();
 	~ALogicEngine();
+
+	void initSeed(unsigned long seed_p);
 
 	// Called to consume a fixed amount of time
 	// every logic component using time should inherit this
@@ -100,6 +103,13 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "LogicEngine")
 		void showLootScreen(TArray<USlot*> const& slots);
 
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		float genUniform(float min, float max);
+
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		float genNormal(float avg, float width, float width_max);
+
+
 protected:
 	UPROPERTY()
 		UWaveEngine* _waveEngine;
@@ -111,4 +121,6 @@ protected:
 		UWavePackage* _curWave;
 
 	MapLayout * _mapLayout;
+
+	std::mt19937* _random;
 };

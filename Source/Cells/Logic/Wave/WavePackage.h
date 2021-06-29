@@ -23,7 +23,8 @@ public:
 	UWavePackage();
 
 	UFUNCTION(BlueprintCallable, Category = "WavePackage")
-		void addMobEntityLayout(FString const& cat, FString const& name, int qty, float delay);
+		void addMobEntityLayout(FString const& cat, FString const& name, int qty, float delay
+			, float maxHitpoint=20, float speed=10, float damageLife=1, float scrapReward=1);
 
 	UFUNCTION(BlueprintCallable, Category = "WavePackage")
 		void setWaveTimeToPrepare(float delay);

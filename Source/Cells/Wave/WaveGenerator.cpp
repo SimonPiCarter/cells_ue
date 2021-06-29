@@ -3,7 +3,7 @@
 
 #include "WaveGenerator.h"
 
-UWavePackage* UWaveGenerator::getNextWavePackage() const
+UWavePackage* UWaveGenerator::getNextWavePackage()
 {
 	return spawnNextWavePackage();
 }

@@ -11,7 +11,7 @@
 class CELLS_API AbstractWaveGenerator
 {
 public:
-	virtual UWavePackage * getNextWavePackage() const = 0;
+	virtual UWavePackage * getNextWavePackage() = 0;
 };
 
 /**
@@ -23,8 +23,8 @@ class CELLS_API UWaveGenerator : public UObject, public AbstractWaveGenerator
 	GENERATED_BODY()
 public:
 
-	virtual UWavePackage* getNextWavePackage() const final;
+	virtual UWavePackage* getNextWavePackage() final;
 	 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "WaveGenerator")
-		UWavePackage* spawnNextWavePackage() const;
+		UWavePackage* spawnNextWavePackage();
 };
