@@ -48,6 +48,9 @@ struct MapLayout
 	BoundingBox boundingBox;
 	std::array<double, 2> _spawnPoint;
 	std::list<std::array<double, 2> > _checkPoints;
+	std::list<TileLayout> _tiles;
+
+	bool isConstructible(int x, int y) const;
 };
 
 UCLASS()

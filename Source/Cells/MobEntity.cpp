@@ -5,8 +5,8 @@
 
 // Sets default values
 AMobEntity::AMobEntity()
-	: armorType(ArmorType::Standard)
-	, _first(true)
+	: _first(true)
+	, armorType(ArmorType::Standard)
 	, _currentCheckPoint()
 	, _enabled(true)
 	, hitpoint(3.)

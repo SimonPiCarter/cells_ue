@@ -95,7 +95,7 @@ public:
 		void removeSlotsFromInventory(TArray<USlot*> const& slots);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
-		bool spawnTower(ATowerEntity* tower);
+		bool spawnTower(ATowerEntity* tower, int x, int y);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		void registerEffect(UEffect * effect);

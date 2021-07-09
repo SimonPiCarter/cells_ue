@@ -51,6 +51,7 @@ MapLayout AMapLayout::getMapLayout()
 	{
 		layout_l._checkPoints.push_back({ pos_l.X, pos_l.Y });
 	}
+	layout_l._tiles = _tiles;
 	return layout_l;
 }
 
@@ -112,4 +113,16 @@ void AMapLayout::spawnMap(ABluePrintLibrary* library_p)
 		AActor* spawnedTile_l = world_l->SpawnActor<AActor>((UClass*)spawnedBlueprint_l->GeneratedClass, FVector(tile_l.x, tile_l.y, tile_l.height), FRotator(0, 0, 0), SpawnParams);
 		tiles.Add(spawnedTile_l);
 	}
+}
+
+bool MapLayout::isConstructible(int x, int y) const
+{
+	for (TileLayout const& tile_l : _tiles)
+	{
+		if (tile_l.x == x && tile_l.y == y)
+		{
+			return tile_l.constructible;
+		}
+	}
+	return false;
 }

@@ -189,9 +189,9 @@ TArray<AMobEntity*> ALogicEngine::getAllMobWithinLine(FVector2D pos, FVector2D t
 	return array_l;
 }
 
-bool ALogicEngine::spawnTower(ATowerEntity* tower)
+bool ALogicEngine::spawnTower(ATowerEntity* tower, int x, int y)
 {
-	if (scraps >= tower->cost)
+	if (scraps >= tower->cost && _mapLayout->isConstructible(x,y))
 	{
 		towers.Add(tower);
 		scraps -= tower->cost;
