@@ -4,11 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
 #include <vector>
+#include <unordered_map>
 
 #include "TowerEntity.generated.h"
 
 class UAttackModifier;
+class UBuffEffect;
 class USlot;
 
 UCLASS()
@@ -23,6 +26,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	/// @brief container for buff
+	std::unordered_map<std::string, UBuffEffect *> _buffs;
 
 public:	
 	// Called every frame
@@ -62,4 +68,9 @@ public:
 	/// @brief get full ranges (taking multiplier into account)
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
 		float getRange() const;
+
+	void registerBuff(UBuffEffect * buff_p);
+	void unregisterBuff(UBuffEffect * buff_p);
+	bool isRegistered(UBuffEffect * buff_p);
+	UBuffEffect * getRegisteredBuff(std::string const & id_p);
 };

@@ -13,7 +13,7 @@ class ALogicEngine;
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class CELLS_API UEffect : public UObject
 {
 	GENERATED_BODY()
@@ -29,7 +29,10 @@ public:
 	void setLogic(ALogicEngine* logic_p) { logic = logic_p; }
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
-		AMobEntity * target;
+		AMobEntity * _mobTarget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
+		ATowerEntity * _towerTarget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 		ATowerEntity* source;

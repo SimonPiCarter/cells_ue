@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "Slot.generated.h"
 
 UCLASS(BlueprintType, Blueprintable)
@@ -14,7 +13,7 @@ class CELLS_API USlot : public UObject
 public:	
 	// Sets default values for this actor's properties
 	USlot();
-	USlot(bool attackModifier_p);
+	USlot(bool attackModifier_p, bool effectMaker_p);
 
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot")
@@ -27,5 +26,8 @@ public:
 		FString description;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Slot")
-		bool isAttackModifier;
+		bool _isAttackModifier;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Slot")
+		bool _isEffectMaker;
 };

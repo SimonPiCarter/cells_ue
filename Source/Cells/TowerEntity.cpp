@@ -6,6 +6,7 @@
 #include <cassert>
 
 #include "Logic/Slot/AttackModifier.h"
+#include "Logic/Effect/Buff/BuffEffect.h"
 
 // Sets default values
 ATowerEntity::ATowerEntity()
@@ -71,3 +72,8 @@ float ATowerEntity::getRange() const
 {
 	return (attackModifier ? attackModifier->range : 0.) + + bonusRange;
 }
+
+void ATowerEntity::registerBuff(UBuffEffect * buff_p) { _buffs[buff_p->getId()] = buff_p; }
+void ATowerEntity::unregisterBuff(UBuffEffect * buff_p) { _buffs.erase(buff_p->getId()); }
+bool ATowerEntity::isRegistered(UBuffEffect * buff_p) { return _buffs.find(buff_p->getId()) != _buffs.end(); }
+UBuffEffect * ATowerEntity::getRegisteredBuff(std::string const & id_p) { return _buffs.find(id_p) != _buffs.end() ? _buffs.find(id_p)->second : nullptr; }

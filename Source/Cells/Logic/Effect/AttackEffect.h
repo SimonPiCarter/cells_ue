@@ -15,11 +15,16 @@ class CELLS_API UAttackEffect : public UEffect
 {
 	GENERATED_BODY()
 public:
+	UAttackEffect();
+
 	virtual void runEffect(float elapsedTime_p) final;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
-		float damage;
+		float _damage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
-		DmgType dmgType;
+		DmgType _dmgType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
+		bool _lethal;
 };

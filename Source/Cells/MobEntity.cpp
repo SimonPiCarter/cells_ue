@@ -3,6 +3,8 @@
 
 #include "MobEntity.h"
 
+#include "Logic/Effect/Buff/BuffEffect.h"
+
 // Sets default values
 AMobEntity::AMobEntity()
 	: _first(true)
@@ -87,3 +89,8 @@ std::array<double, 2> const& AMobEntity::getCurrentCheckPoint()
 	}
 	return *_currentCheckPoint;
 }
+
+void AMobEntity::registerBuff(UBuffEffect * buff_p) { _buffs[buff_p->getId()] = buff_p; }
+void AMobEntity::unregisterBuff(UBuffEffect * buff_p) { _buffs.erase(buff_p->getId()); }
+bool AMobEntity::isRegistered(UBuffEffect * buff_p) { return _buffs.find(buff_p->getId()) != _buffs.end(); }
+UBuffEffect * AMobEntity::getRegisteredBuff(std::string const & id_p) { return _buffs.find(id_p) != _buffs.end() ? _buffs.find(id_p)->second : nullptr; }

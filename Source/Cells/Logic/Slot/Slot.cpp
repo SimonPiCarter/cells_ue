@@ -4,7 +4,7 @@
 #include "Slot.h"
 
 // Sets default values
-USlot::USlot() : isAttackModifier(false)
+USlot::USlot() : _isAttackModifier(false), _isEffectMaker(false)
 {}
-USlot::USlot(bool attackModifier_p) : isAttackModifier(attackModifier_p)
+USlot::USlot(bool attackModifier_p, bool effectMaker_p) : _isAttackModifier(attackModifier_p), _isEffectMaker(effectMaker_p)
 {}

@@ -10,8 +10,11 @@
 #include <array>
 #include <list>
 #include <string>
+#include <unordered_map>
 
 #include "MobEntity.generated.h"
+
+class UBuffEffect;
 
 UCLASS()
 class CELLS_API AMobEntity : public AActor
@@ -30,6 +33,11 @@ public:
 	std::list<StorageInfo<AMobEntity> > const& getPositionNodes() const;
 	std::list<StorageInfo<AMobEntity> >& getPositionNodes();
 
+	void registerBuff(UBuffEffect * buff_p);
+	void unregisterBuff(UBuffEffect * buff_p);
+	bool isRegistered(UBuffEffect * buff_p);
+	UBuffEffect * getRegisteredBuff(std::string const & id_p);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,6 +48,9 @@ protected:
 	bool _enabled;
 
 	std::list<StorageInfo<AMobEntity> > _storageInfo;
+
+	/// @brief container for buff
+	std::unordered_map<std::string, UBuffEffect *> _buffs;
 
 public:	
 	// Called every frame

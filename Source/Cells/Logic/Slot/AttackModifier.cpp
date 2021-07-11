@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <cmath>
 
-UAttackModifier::UAttackModifier() : USlot(true)
+UAttackModifier::UAttackModifier() : USlot(true, false)
 {}
 
 namespace
