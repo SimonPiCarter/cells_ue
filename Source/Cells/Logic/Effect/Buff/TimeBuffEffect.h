@@ -17,8 +17,15 @@ public:
 	UTimeBuffEffect();
 	UTimeBuffEffect(float duration_p);
 
-	/// to be extended
+	/// should not be extended
 	virtual void runEffect(float elapsedTime_p);
+
+	// can be extended
+	virtual void updateBuff(float elapsedTime_p) {}
+
+	/// should not be extended
+	// refresh the effect : reset timer and increase stack count
+	virtual void refresh();
 
 protected:
 	/// @brief duration of the TimeBuff
@@ -33,4 +40,6 @@ protected:
 		int _maxStack;
 	/// @brief current stack count
 	int _stack;
+
+	bool _registered;
 };

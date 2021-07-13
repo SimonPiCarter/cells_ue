@@ -6,10 +6,10 @@
 #include "../../../TowerEntity.h"
 #include "../../Slot/EffectMaker/BuffOnHit.h"
 
-UTimeBuffEffect::UTimeBuffEffect() : UBuffEffect(), _duration(0.), _fullElapsedTime(0.)
+UTimeBuffEffect::UTimeBuffEffect() : UBuffEffect(), _duration(0.), _fullElapsedTime(0.), _registered(false)
 {}
 
-UTimeBuffEffect::UTimeBuffEffect(float duration_p) : UBuffEffect(), _duration(duration_p), _fullElapsedTime(0.)
+UTimeBuffEffect::UTimeBuffEffect(float duration_p) : UBuffEffect(), _duration(duration_p), _fullElapsedTime(0.), _registered(false)
 {}
 
 void UTimeBuffEffect::runEffect(float elapsedTime_p)
@@ -17,10 +17,11 @@ void UTimeBuffEffect::runEffect(float elapsedTime_p)
 	// if first application
 	if(!_applied)
 	{
+		_applied = true;
 		// if not already registered we add it
 		if(!isRegistered())
 		{
-			_applied = true;
+			_registered = true;
 			// add a stack
 			++_stack;
 			// apply buff
@@ -46,6 +47,27 @@ void UTimeBuffEffect::runEffect(float elapsedTime_p)
 	if(over && _applied)
 	{
 		revert();
-		unregisterBuff();
+		if(_registered)
+		{
+			unregisterBuff();
+		}
+	} else if(_applied)
+	{
+		updateBuff(elapsedTime_p);
 	}
+}
+
+void UTimeBuffEffect::refresh()
+{
+	if(_stack < _maxStack)
+	{
+		// revert buff with old stack count
+		revert();
+		// add a stack
+		++_stack;
+		// apply back buff with new stack count
+		apply();
+	}
+	// reset elapsed time
+	_fullElapsedTime = 0.;
 }

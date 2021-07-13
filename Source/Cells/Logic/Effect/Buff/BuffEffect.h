@@ -32,9 +32,6 @@ public:
 	// refresh the effect (eg : reset timer)
 	virtual void refresh() {}
 
-	/// to be extended
-	virtual bool isBuffOver(float elapsedTime_p) { return false; }
-
 	/// @brief to be called to register the buff in the target
 	/// MUST BE CALLED when buff is applied
 	void registerBuff();

@@ -5,18 +5,9 @@
 
 #include <sstream>
 #include <iomanip>
-#include <cmath>
 
 UAttackModifier::UAttackModifier() : USlot(true, false)
 {}
-
-namespace
-{
-	float cround(float val_p)
-	{
-		return std::ceil(val_p * 100.f) / 100.f;
-	}
-}
 
 FString UAttackModifier::buildBasicDesc()
 {

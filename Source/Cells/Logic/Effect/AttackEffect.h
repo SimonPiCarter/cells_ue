@@ -27,4 +27,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
 		bool _lethal;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttackEffect")
+	/// @brief must only be true if effect on hit should be trigger
+		bool _primary;
 };

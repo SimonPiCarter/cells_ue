@@ -6,7 +6,7 @@
 #include "../../TowerEntity.h"
 #include "../Slot/EffectMaker/BuffOnHit.h"
 
-UAttackEffect::UAttackEffect() : UEffect(), _damage(0.), _dmgType(DmgType::Standard), _lethal(true)
+UAttackEffect::UAttackEffect() : UEffect(), _damage(0.), _dmgType(DmgType::Standard), _lethal(true), _primary(false)
 {}
 
 void UAttackEffect::runEffect(float elapsedTime_p)
@@ -68,16 +68,19 @@ void UAttackEffect::runEffect(float elapsedTime_p)
 		_mobTarget->damage(dmg_l);
 	}
 
-	// Check tower for buff on hit effects
-	for(USlot const * slot_l : source->slots)
+	if(_primary)
 	{
-		if(slot_l->_isEffectMaker)
+		// Check tower for buff on hit effects
+		for(USlot const * slot_l : source->slots)
 		{
-			UEffectMaker const * maker_l = static_cast<UEffectMaker const *>(slot_l);
-			if(maker_l->isBuffOnHit())
+			if(slot_l->_isEffectMaker)
 			{
-				UBuffOnHit const * bufferOnHit_l = static_cast<UBuffOnHit const *>(maker_l);
-				bufferOnHit_l->spawnEffect(logic, source, _mobTarget);
+				UEffectMaker const * maker_l = static_cast<UEffectMaker const *>(slot_l);
+				if(maker_l->isBuffOnHit())
+				{
+					UBuffOnHit const * bufferOnHit_l = static_cast<UBuffOnHit const *>(maker_l);
+					bufferOnHit_l->spawnEffect(logic, source, _mobTarget);
+				}
 			}
 		}
 	}

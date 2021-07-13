@@ -25,8 +25,6 @@ public:
 	virtual void revert();
 
 protected:
-	bool _applied;
-
 	/// @brief multiplication factor for every stack (1 means + 100 %)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MultDmgEffect")
 		float _mult;

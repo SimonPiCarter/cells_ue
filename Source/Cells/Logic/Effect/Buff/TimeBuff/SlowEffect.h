@@ -25,8 +25,6 @@ public:
 	virtual void revert();
 
 protected:
-	bool _applied;
-
 	/// @brief slow factor (between 0 and 1 : 0.1 means slowed speed will reduced by 10% per stack)
     /// is capped to 0.99
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SlowEffect")

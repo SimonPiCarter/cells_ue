@@ -27,7 +27,7 @@ public:
 	bool isOver() const { return over; }
 
 	void setLogic(ALogicEngine* logic_p) { logic = logic_p; }
-protected:
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 		AMobEntity * _mobTarget;
 

@@ -30,4 +30,8 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Slot")
 		bool _isEffectMaker;
+
+	UFUNCTION(BlueprintCallable, Category = "AttackModifier")
+	/// @brief round with two digit maximum
+		float cround(float val);
 };
