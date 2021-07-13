@@ -18,10 +18,6 @@ public:
 	UDotEffect();
 	UDotEffect(float duration_p, float dmg_p);
 
-	/// to be extended
-	// apply effect
-	virtual void apply() {}
-
 	void updateBuff(float elapsedTime_p);
 
 protected:
