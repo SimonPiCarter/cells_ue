@@ -58,7 +58,7 @@ void UAttackEffect::runEffect(float elapsedTime_p)
 		}
 	}
 
-	float dmg_l = mult_l * _damage;
+	float dmg_l = mult_l * _damage * _mobTarget->damageMultiplier;
 	if(!_lethal)
 	{
 		dmg_l = std::min(dmg_l, _mobTarget->hitpoint-1);

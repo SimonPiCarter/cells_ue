@@ -3,8 +3,6 @@
 
 #include "SlowEffect.h"
 #include "../../../../MobEntity.h"
-#include "../../../../TowerEntity.h"
-#include "../TimeBuffEffect.h"
 
 USlowEffect::USlowEffect() : UTimeBuffEffect()
 {
