@@ -8,7 +8,6 @@
 // Sets default values
 AMobEntity::AMobEntity()
 	: _first(true)
-	, armorType(ArmorType::Standard)
 	, _currentCheckPoint()
 	, _enabled(true)
 	, hitpoint(3.)
@@ -18,6 +17,7 @@ AMobEntity::AMobEntity()
 	, damageLife(1.)
 	, scrapReward(1.)
 	, size(1.)
+	, armorType(ArmorType::Standard)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
