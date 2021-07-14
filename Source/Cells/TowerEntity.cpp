@@ -16,6 +16,7 @@ ATowerEntity::ATowerEntity()
 	, maxSlots(2)
 	, cost(20)
 	, attackModifier(nullptr)
+	, _currentTarget(nullptr)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;

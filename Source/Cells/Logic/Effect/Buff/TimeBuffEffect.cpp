@@ -41,7 +41,7 @@ void UTimeBuffEffect::runEffect(float elapsedTime_p)
 
 	_fullElapsedTime += elapsedTime_p;
 
-	over = _fullElapsedTime > _duration;
+	over |= _fullElapsedTime > _duration && _duration > 0.f;
 
 	// if last application we revert the buff
 	if(over && _applied)

@@ -27,17 +27,18 @@ public:
 	// refresh the effect : reset timer and increase stack count
 	virtual void refresh();
 
-protected:
-	/// @brief duration of the TimeBuff
+	/// @brief duration of the TimeBuff if set to 0 there is no time limit
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TimeBuffEffect")
 		float _duration;
-
-	/// @brief time elapsed since application of the buff
-	float _fullElapsedTime;
 
 	/// @brief max stack for this buff (1 for not stackable)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TimeBuffEffect")
 		int _maxStack;
+
+protected:
+	/// @brief time elapsed since application of the buff
+	float _fullElapsedTime;
+
 	/// @brief current stack count
 	int _stack;
 

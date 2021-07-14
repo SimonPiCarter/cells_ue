@@ -10,6 +10,7 @@
 
 #include "TowerEntity.generated.h"
 
+class AMobEntity;
 class UAttackModifier;
 class UBuffEffect;
 class USlot;
@@ -54,6 +55,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
 		UAttackModifier* attackModifier;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TowerEntity")
+		AMobEntity* _currentTarget;
 
 	/// @brief update slots and return all removed slots
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
