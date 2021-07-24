@@ -17,10 +17,10 @@ void UTimeBuffEffect::runEffect(float elapsedTime_p)
 	// if first application
 	if(!_applied)
 	{
-		_applied = true;
 		// if not already registered we add it
 		if(!isRegistered())
 		{
+			_applied = true;
 			_registered = true;
 			// add a stack
 			++_stack;

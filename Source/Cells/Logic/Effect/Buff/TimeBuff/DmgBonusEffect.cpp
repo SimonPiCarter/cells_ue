@@ -4,7 +4,7 @@
 #include "DmgBonusEffect.h"
 #include "../../../../TowerEntity.h"
 
-UDmgBonusEffect::UDmgBonusEffect() : UTimeBuffEffect()
+UDmgBonusEffect::UDmgBonusEffect() : UTimeBuffEffect(), _bonus(0.f)
 {
 	setId("DmgBonusEffect");
 }

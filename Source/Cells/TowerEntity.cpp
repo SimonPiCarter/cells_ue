@@ -12,7 +12,7 @@
 ATowerEntity::ATowerEntity()
 	: multAttackSpeed(1.)
 	, multDamage(1.)
-	, bonusRange(1.)
+	, bonusRange(0.)
 	, maxSlots(2)
 	, cost(20)
 	, attackModifier(nullptr)
