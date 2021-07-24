@@ -11,12 +11,14 @@ UEffectMaker::UEffectMaker()
 	: USlot(false, true)
 	, _buffOnAttack(false)
 	, _buffOnHit(false)
+	, _buffOnLastHit(false)
 	, _buffOnEquip(false)
 {}
 
-UEffectMaker::UEffectMaker(bool buffOnAttack_p, bool buffOnHit_p, bool buffOnEquip_p)
+UEffectMaker::UEffectMaker(bool buffOnAttack_p, bool buffOnHit_p, bool buffOnLastHit_p, bool buffOnEquip_p)
 	: USlot(false, true)
 	, _buffOnAttack(buffOnAttack_p)
 	, _buffOnHit(buffOnHit_p)
+	, _buffOnLastHit(buffOnLastHit_p)
 	, _buffOnEquip(buffOnEquip_p)
 {}

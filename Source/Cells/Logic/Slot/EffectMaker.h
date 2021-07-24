@@ -19,14 +19,16 @@ class CELLS_API UEffectMaker : public USlot
 
 public:
 	UEffectMaker();
-	UEffectMaker(bool buffOnAttack_p, bool buffOnHit_p, bool buffOnEquip_p);
+	UEffectMaker(bool buffOnAttack_p, bool buffOnHit_p, bool buffOnLastHit_p, bool buffOnEquip_p);
 
 	bool isBuffOnAttack() const { return _buffOnAttack; }
 	bool isBuffOnHit() const { return _buffOnHit; }
+	bool isBuffOnLastHit() const { return _buffOnLastHit; }
 	bool isBuffOnEquip() const { return _buffOnEquip; }
 
 private:
-	bool _buffOnAttack;
-	bool _buffOnHit;
-	bool _buffOnEquip;
+	bool const _buffOnAttack;
+	bool const _buffOnHit;
+	bool const _buffOnLastHit;
+	bool const _buffOnEquip;
 };

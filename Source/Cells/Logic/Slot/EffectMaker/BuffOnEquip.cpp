@@ -7,5 +7,5 @@
 #include <iomanip>
 #include <cmath>
 
-UBuffOnEquip::UBuffOnEquip() : UEffectMaker(false, false, true)
+UBuffOnEquip::UBuffOnEquip() : UEffectMaker(false, false, false, true)
 {}
