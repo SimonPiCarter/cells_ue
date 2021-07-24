@@ -9,22 +9,19 @@
 class ALogicEngine;
 class ATowerEntity;
 
-class InterfaceBuffOnAttack : public InterfaceEffectMaker
-{
-public:
-	virtual bool isBuffOnAttack() const { return true; }
-};
 
 /**
  * 
  */
 UCLASS()
-class CELLS_API UBuffOnAttack : public UEffectMaker, public InterfaceBuffOnAttack
+class CELLS_API UBuffOnAttack : public UEffectMaker
 {
 	GENERATED_BODY()
 
 public:
 	UBuffOnAttack();
+
+	virtual bool isBuffOnAttack() const { return true; }
 
 protected:
 };

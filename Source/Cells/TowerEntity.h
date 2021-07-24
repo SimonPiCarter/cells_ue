@@ -14,6 +14,7 @@ class AMobEntity;
 class UAttackModifier;
 class UBuffEffect;
 class USlot;
+class ALogicEngine;
 
 UCLASS()
 class CELLS_API ATowerEntity : public AActor
@@ -61,7 +62,7 @@ public:
 
 	/// @brief update slots and return all removed slots
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")
-		TArray<USlot*> updateSlots(UAttackModifier* newAttackModifier, TArray<USlot*> newSlots);
+		TArray<USlot*> updateSlots(ALogicEngine * logic, UAttackModifier* newAttackModifier, TArray<USlot*> newSlots);
 
 	/// @brief get full attack speed (taking multiplier into account)
 	UFUNCTION(BlueprintCallable, Category = "TowerEntity")

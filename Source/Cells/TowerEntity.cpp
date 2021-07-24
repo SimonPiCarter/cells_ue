@@ -7,6 +7,7 @@
 
 #include "Logic/Slot/AttackModifier.h"
 #include "Logic/Effect/Buff/BuffEffect.h"
+#include "Logic/Slot/EffectMaker/BuffOnEquip.h"
 
 // Sets default values
 ATowerEntity::ATowerEntity()
@@ -20,6 +21,8 @@ ATowerEntity::ATowerEntity()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	slots.Add(nullptr);
 
 }
 
@@ -37,12 +40,17 @@ void ATowerEntity::Tick(float DeltaTime)
 
 }
 
-TArray<USlot*> ATowerEntity::updateSlots(UAttackModifier* newAttackModifier, TArray<USlot*> newSlots)
+TArray<USlot*> ATowerEntity::updateSlots(ALogicEngine * logic, UAttackModifier* newAttackModifier, TArray<USlot*> newSlots)
 {
+	TArray<USlot*> newSlots_l;
 	TArray<USlot*> removedSlots_l;
 	if (attackModifier != newAttackModifier)
 	{
-		removedSlots_l.Add(attackModifier);
+		if (attackModifier)
+		{
+			removedSlots_l.Add(attackModifier);
+		}
+		newSlots_l.Add(newAttackModifier);
 	}
 	attackModifier = newAttackModifier;
 
@@ -50,10 +58,39 @@ TArray<USlot*> ATowerEntity::updateSlots(UAttackModifier* newAttackModifier, TAr
 	{
 		if (newSlots[i] != slots[i])
 		{
-			removedSlots_l.Add(slots[i]);
+			if (slots[i])
+			{
+				removedSlots_l.Add(slots[i]);
+			}
+			newSlots_l.Add(newSlots[i]);
 		}
 		slots[i] = newSlots[i];
 	}
+
+	for(USlot * slot_l : newSlots_l)
+	{
+		if(slot_l->_isEffectMaker)
+		{
+			UEffectMaker * maker_l = static_cast<UEffectMaker *>(slot_l);
+			if(maker_l->isBuffOnEquip())
+			{
+				maker_l->equip(logic, this);
+			}
+		}
+	}
+
+	for(USlot * slot_l : removedSlots_l)
+	{
+		if(slot_l->_isEffectMaker)
+		{
+			UEffectMaker * maker_l = static_cast<UEffectMaker *>(slot_l);
+			if(maker_l->isBuffOnEquip())
+			{
+				maker_l->unequip(logic, this);
+			}
+		}
+	}
+
 	return removedSlots_l;
 }
 
@@ -66,12 +103,12 @@ float ATowerEntity::getAttackSpeed() const
 /// @brief get full damages (taking multiplier into account)
 float ATowerEntity::getDamage() const
 {
-	return (attackModifier ? attackModifier->damage : 1.) * multDamage;
+	return (attackModifier ? attackModifier->damage : 1.) * std::max(0.f, multDamage);
 }
 /// @brief get full ranges (taking multiplier into account)
 float ATowerEntity::getRange() const
 {
-	return (attackModifier ? attackModifier->range : 0.) + + bonusRange;
+	return (attackModifier ? attackModifier->range : 0.) + bonusRange;
 }
 
 void ATowerEntity::registerBuff(UBuffEffect * buff_p) { _buffs[buff_p->getId()] = buff_p; }

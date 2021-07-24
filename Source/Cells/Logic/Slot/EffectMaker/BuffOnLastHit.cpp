@@ -10,7 +10,7 @@
 UBuffOnLastHit::UBuffOnLastHit() : UEffectMaker()
 {}
 
-void UBuffOnLastHit::spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const
+void UBuffOnLastHit::spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target)
 {
     this->spawnEffectOnLastHitImpl(engine, source, target);
 }

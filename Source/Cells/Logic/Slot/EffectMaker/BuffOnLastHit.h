@@ -10,26 +10,20 @@ class ALogicEngine;
 class AMobEntity;
 class ATowerEntity;
 
-class InterfaceBuffOnLastHit : public InterfaceEffectMaker
-{
-public:
-	virtual bool isBuffOnLastHit() const { return true; }
-
-    virtual void spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const = 0;
-};
-
 /**
  * 
  */
 UCLASS()
-class CELLS_API UBuffOnLastHit : public UEffectMaker, public InterfaceBuffOnLastHit
+class CELLS_API UBuffOnLastHit : public UEffectMaker
 {
 	GENERATED_BODY()
 
 public:
 	UBuffOnLastHit();
 
-    virtual void spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
+	virtual bool isBuffOnLastHit() const { return true; }
+
+    virtual void spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target);
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "BuffOnLastHit")
 		void spawnEffectOnLastHitImpl(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;

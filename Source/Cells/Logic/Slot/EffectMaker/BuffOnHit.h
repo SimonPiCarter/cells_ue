@@ -10,25 +10,18 @@ class ALogicEngine;
 class AMobEntity;
 class ATowerEntity;
 
-class InterfaceBuffOnHit : public InterfaceEffectMaker
-{
-public:
-	virtual bool isBuffOnHit() const { return true; }
-
-    virtual void spawnEffectOnHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const = 0;
-};
-
 /**
  * 
  */
 UCLASS()
-class CELLS_API UBuffOnHit : public UEffectMaker, public InterfaceBuffOnHit
+class CELLS_API UBuffOnHit : public UEffectMaker
 {
 	GENERATED_BODY()
 
 public:
 	UBuffOnHit();
 
+	virtual bool isBuffOnHit() const { return true; }
     virtual void spawnEffectOnHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "BuffOnHit")
