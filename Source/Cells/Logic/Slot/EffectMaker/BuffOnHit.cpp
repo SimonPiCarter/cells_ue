@@ -7,10 +7,10 @@
 #include <iomanip>
 #include <cmath>
 
-UBuffOnHit::UBuffOnHit() : UEffectMaker(false, true, false, false)
+UBuffOnHit::UBuffOnHit() : UEffectMaker()
 {}
 
-void UBuffOnHit::spawnEffect(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const
+void UBuffOnHit::spawnEffectOnHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const
 {
     this->spawnEffectImpl(engine, source, target);
 }

@@ -79,7 +79,7 @@ void UAttackEffect::runEffect(float elapsedTime_p)
 				if(maker_l->isBuffOnHit())
 				{
 					UBuffOnHit const * bufferOnHit_l = static_cast<UBuffOnHit const *>(maker_l);
-					bufferOnHit_l->spawnEffect(logic, source, _mobTarget);
+					bufferOnHit_l->spawnEffectOnHit(logic, source, _mobTarget);
 				}
 			}
 		}

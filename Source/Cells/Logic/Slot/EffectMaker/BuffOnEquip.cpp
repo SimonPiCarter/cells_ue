@@ -7,5 +7,10 @@
 #include <iomanip>
 #include <cmath>
 
-UBuffOnEquip::UBuffOnEquip() : UEffectMaker(false, false, false, true)
+UBuffOnEquip::UBuffOnEquip() : UEffectMaker()
+{}
+
+void UBuffOnEquip::equip(ALogicEngine* engine, ATowerEntity* tower)
+{}
+void UBuffOnEquip::unequip(ALogicEngine* engine, ATowerEntity* tower)
 {}

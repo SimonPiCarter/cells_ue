@@ -4,27 +4,35 @@
 
 #include "CoreMinimal.h"
 #include "../EffectMaker.h"
-#include "BuffOnLasHit.generated.h"
+#include "BuffOnLastHit.generated.h"
 
 class ALogicEngine;
 class AMobEntity;
 class ATowerEntity;
 
+class InterfaceBuffOnLastHit : public InterfaceEffectMaker
+{
+public:
+	virtual bool isBuffOnLastHit() const { return true; }
+
+    virtual void spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const = 0;
+};
+
 /**
  * 
  */
 UCLASS()
-class CELLS_API UBuffOnLastHit : public UEffectMaker
+class CELLS_API UBuffOnLastHit : public UEffectMaker, public InterfaceBuffOnLastHit
 {
 	GENERATED_BODY()
 
 public:
 	UBuffOnLastHit();
 
-    virtual void spawnEffect(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
+    virtual void spawnEffectOnLastHit(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
 
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "BuffOnLasHit")
-		void spawnEffectImpl(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "BuffOnLastHit")
+		void spawnEffectOnLastHitImpl(ALogicEngine* engine, ATowerEntity* source, AMobEntity* target) const;
 
 protected:
 };
