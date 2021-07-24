@@ -11,7 +11,7 @@ class ATowerEntity;
 class UBuffEquipEffect;
 
 /**
- * 
+ *
  */
 UCLASS()
 class CELLS_API UBuffOnEquip : public UEffectMaker
@@ -33,5 +33,6 @@ public:
 
 protected:
 	// pointer to the buff (to apply and revert buff)
-	UBuffEquipEffect * _buff;
+	UPROPERTY()
+		UBuffEquipEffect * _buff;
 };
