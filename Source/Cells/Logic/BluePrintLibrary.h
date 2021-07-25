@@ -14,8 +14,8 @@ UCLASS()
 class CELLS_API ABluePrintLibrary : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABluePrintLibrary();
 
@@ -27,7 +27,7 @@ protected:
 
 	static std::string computeKey(std::string const& category_p, std::string const& name_p);
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

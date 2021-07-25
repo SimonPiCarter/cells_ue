@@ -24,7 +24,7 @@ struct MapLayout;
 struct WaveLayout;
 
 /**
- * 
+ *
  */
 UCLASS()
 class CELLS_API ALogicEngine : public ALogicActor
@@ -105,6 +105,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		float genUniform(float min, float max);
+
+	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
+		int genIntUniform(int min, int max);
 
 	UFUNCTION(BlueprintCallable, Category = "LogicEngine")
 		float genNormal(float avg, float width, float width_max);

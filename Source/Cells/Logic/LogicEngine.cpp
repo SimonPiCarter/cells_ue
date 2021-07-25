@@ -230,6 +230,12 @@ float ALogicEngine::genUniform(float min, float max)
 	return distribution_l(*_random);
 }
 
+int ALogicEngine::genIntUniform(int min, int max)
+{
+	std::uniform_int_distribution<int> distribution_l(min, max);
+	return distribution_l(*_random);
+}
+
 float ALogicEngine::genNormal(float avg, float width, float width_max)
 {
 	std::normal_distribution<double> distribution_l(0.f, 0.2f);

@@ -12,13 +12,13 @@
 class USlot;
 
 /**
- * 
+ *
  */
 UCLASS(BlueprintType)
 class CELLS_API UWavePackage : public UObject
 {
 	GENERATED_BODY()
-	
+
 public:
 	UWavePackage();
 
